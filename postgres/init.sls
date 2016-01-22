@@ -14,11 +14,12 @@ install-postgresql:
     - name: {{ postgres.pkg }}
     - refresh: {{ postgres.use_upstream_repo }}
 
-install-tools:
-  pkg.installed:
-    - names:
+install-backup-tools:
+  pkg.latest:
+    - pkgs:
       - lzop
       - daemontools
+    - refresh: True
   pip.installed:
     - names:
       - wal-e
