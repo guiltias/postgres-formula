@@ -14,6 +14,15 @@ install-postgresql:
     - name: {{ postgres.pkg }}
     - refresh: {{ postgres.use_upstream_repo }}
 
+install-tools:
+  pkg.installed:
+    - names:
+      - lzop
+      - daemontools
+  pip.installed:
+    - names:
+      - wal-e
+
 {% if postgres.create_cluster != False %}
 create-postgresql-cluster:
   cmd.run:
