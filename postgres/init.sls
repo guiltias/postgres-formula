@@ -47,6 +47,7 @@ run-postgresql:
     - name: {{ postgres.service }}
     - require:
       - pkg: install-postgresql
+      - pip: install-wal-e
 
 {% if postgres.pkgs_extra %}
 install-postgres-extra:
