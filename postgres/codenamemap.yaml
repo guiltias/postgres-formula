@@ -8,9 +8,9 @@ jessie:
   conf_dir: /etc/postgresql/9.4/main
   pkg_dev: postgresql-server-dev-9.4
 trusty:
-  version: 9.3
+  version: 9.2
   pkg_repo: deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main
-  conf_dir: /etc/postgresql/9.3/main
+  conf_dir: /etc/postgresql/9.2/main
 utopic:
   version: 9.4
   pkg_repo: deb http://apt.postgresql.org/pub/repos/apt/ utopic-pgdg main
