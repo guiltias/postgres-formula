@@ -7,14 +7,14 @@ include:
   file.directory:
     - user: root
     - group: postgres
-    - mode: 744
+    - mode: 750
     - makedirs: True
 
 /etc/wal-e.d/main/env/AWS_ACCESS_KEY_ID:
   file.managed:
     - user: root
     - group: postgres
-    - mode: 644
+    - mode: 650
     - contents:
       - {{ postgres.aws.access_key_id }}
 
@@ -22,7 +22,7 @@ include:
   file.managed:
     - user: root
     - group: postgres
-    - mode: 644
+    - mode: 650
     - contents:
       - {{ postgres.aws.secret_access_key }}
 
@@ -30,7 +30,7 @@ include:
   file.managed:
     - user: root
     - group: postgres
-    - mode: 644
+    - mode: 650
     - contents:
       - {{ postgres.aws.wale_s3_prefix }}
 
