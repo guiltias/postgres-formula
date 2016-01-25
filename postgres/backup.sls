@@ -49,6 +49,29 @@ repostore-latest-postgres-backup:
       - pkg: install-postgresql
       - pip: install-wal-e 
 
+set-postgresql-dir-permissions:
+  file.directory:
+    - name: /var/lib/postgresql/9.2/main
+    - user: postgres
+    - group: postgres
+    - mode: 700
+    - require:
+      - cmd: repostore-latest-postgres-backup
+
+configure-restore-script:
+  file.managed:
+    - name: /var/lib/postgresql/9.2/main/recovery.conf
+    - user: postgres
+    - group: postgres
+    - mode: 655
+    - contents:
+      - standby_mode = 'on'
+      - primary_conninfo = 'host={{ postgres.replica_master_host }}'
+      - restore_command = 'envdir /etc/wal-e.d/main/env wal-e wal-fetch %f %p' 
+    - require:
+      - cmd: repostore-latest-postgres-backup
+      - file: set-postgresql-dir-permissions
+    
 run-postgresql:
   service.running:
     - enable: true
@@ -56,4 +79,6 @@ run-postgresql:
     - require:
       - pkg: install-postgresql
       - cmd: repostore-latest-postgres-backup
+      - file: configure-restore-script
+      - file: set-postgresql-dir-permissions
 {% endif %}
