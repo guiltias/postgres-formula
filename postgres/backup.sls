@@ -12,27 +12,27 @@ include:
 
 /etc/wal-e.d/main/env/AWS_ACCESS_KEY_ID:
   file.managed:
+    - user: root
+    - group: postgres
+    - mode: 644
     - contents:
       - {{ postgres.aws.access_key_id }}
-      - user: root
-      - group: postgres
-      - mode: 644
 
 /etc/wal-e.d/main/env/AWS_SECRET_ACCESS_KEY:
   file.managed:
+    - user: root
+    - group: postgres
+    - mode: 644
     - contents:
       - {{ postgres.aws.secret_access_key }}
-      - user: root
-      - group: postgres
-      - mode: 644
 
 /etc/wal-e.d/main/env/WALE_S3_PREFIX:
   file.managed:
+    - user: root
+    - group: postgres
+    - mode: 644
     - contents:
       - {{ postgres.aws.wale_s3_prefix }}
-      - user: root
-      - group: postgres
-      - mode: 644
 
 {% if postgres.init_replica == True %}
 repostore-latest-postgres-backup:
