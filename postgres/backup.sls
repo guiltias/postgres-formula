@@ -3,7 +3,7 @@
 /etc/wal-e.d/{{ postgres.dbalias }}/env:
   file.directory:
     - user: root
-    - group: postgrs
+    - group: postgres
     - mode: 711
     - makedirs: True
 
