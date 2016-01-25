@@ -67,7 +67,7 @@ configure-restore-script:
     - contents:
       - standby_mode = 'on'
       - primary_conninfo = 'host={{ postgres.replica_master_host }}'
-      - restore_command = 'envdir /etc/wal-e.d/main/env wal-e wal-fetch %f %p' 
+      - restore_command = 'envdir /etc/wal-e.d/main/env /usr/local/bin/wal-e wal-fetch %f %p' 
     - require:
       - cmd: repostore-latest-postgres-backup
       - file: set-postgresql-dir-permissions
