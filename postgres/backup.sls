@@ -7,7 +7,7 @@ include:
   file.directory:
     - user: root
     - group: postgres
-    - mode: 711
+    - mode: 744
     - makedirs: True
 
 /etc/wal-e.d/main/env/AWS_ACCESS_KEY_ID:
