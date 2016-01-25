@@ -1,4 +1,4 @@
-{% set postgres = salt['pillar.get']('postgres', default=lookup, merge=True) %}
+{% from "postgres/map.jinja" import postgres with context %}
 
 include:
   - postgres
