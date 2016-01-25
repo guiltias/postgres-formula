@@ -14,6 +14,11 @@ install-postgresql:
     - name: {{ postgres.pkg }}
     - refresh: {{ postgres.use_upstream_repo }}
 
+install-wal-e:
+  pip.installed:
+    - names:
+      - wal-e
+
 {% if postgres.create_cluster != False %}
 create-postgresql-cluster:
   cmd.run:
@@ -42,7 +47,6 @@ run-postgresql:
     - name: {{ postgres.service }}
     - require:
       - pkg: install-postgresql
-      - pip: install-wal-e
 
 {% if postgres.pkgs_extra %}
 install-postgres-extra:
