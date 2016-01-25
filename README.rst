@@ -28,6 +28,11 @@ Installs the postgresql python module
 
 Installs the postgresql client
 
+``postgres.backup``
+-------------------
+
+Configure wal-e environment for continuous backup
+
 Testing
 =======
 
