@@ -41,12 +41,15 @@ postgresql-initdb:
       LC_ALL: C.UTF-8
 {% endif %}
 
+
+{% if postgres.init_replica == False %}
 run-postgresql:
   service.running:
     - enable: true
     - name: {{ postgres.service }}
     - require:
       - pkg: install-postgresql
+{% endif %}
 
 {% if postgres.pkgs_extra %}
 install-postgres-extra:
