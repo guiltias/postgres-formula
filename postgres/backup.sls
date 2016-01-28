@@ -37,7 +37,7 @@ include:
 {% if postgres.init_replica == True %}
 repostore-latest-postgres-backup:
   cmd.run:
-    - name: rm -rf /var/lib/postgresql/9.2/main && envdir /etc/wal-e.d/main/env wal-e backup-fetch /var/lib/postgresql/9.2/main LATEST
+    - name: service postgresql stop && rm -rf /var/lib/postgresql/9.2/main && envdir /etc/wal-e.d/main/env wal-e backup-fetch /var/lib/postgresql/9.2/main LATEST
     - cwd: /var/lib/postgresql
     - user: postgres
     - group: postgres
