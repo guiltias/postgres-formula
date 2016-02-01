@@ -15,3 +15,15 @@ install-postgres-libpq-dev:
   pkg.installed:
     - name: {{ postgres.pkg_libpq_dev }}
 {% endif %}
+
+{% for username in salt['pillar.get']('users', []) -%}
+/home/{{ username }}/.pgpass:
+  file.managed:
+    - user: {{ username }}
+    - group: {{ username }}
+    - mode: 600
+    - contents: |
+      {% for dbuser in postgres.user_list -%}
+      *:*:*:{{ dbuser }}:{{ postgres.user_list[dbuser] }}
+      {%- endfor %}
+{%- endfor %}
