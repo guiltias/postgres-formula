@@ -22,8 +22,6 @@ install-postgres-libpq-dev:
     - user: {{ username }}
     - group: {{ username }}
     - mode: 600
-    - contents: |
-      {% for dbuser in postgres.user_list -%}
-      *:*:*:{{ dbuser }}:{{ postgres.user_list[dbuser] }}
-      {%- endfor %}
+    - source: salt://postgres/pgpass
+    - template: jinja
 {%- endfor %}

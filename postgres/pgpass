@@ -1,0 +1,4 @@
+{% from "postgres/map.jinja" import postgres with context %}
+{% for dbuser in postgres.user_list -%}
+*:*:*:{{ dbuser }}:{{ postgres.user_list[dbuser] }}
+{%- endfor %}
