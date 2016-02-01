@@ -1,0 +1,4 @@
+{%- from "postgres/map.jinja" import postgres with context -%}
+{% for user in postgres.user_list -%}
+"{{ user }}" "{{ postgres.user_list[user] }}"
+{%- endfor %}
