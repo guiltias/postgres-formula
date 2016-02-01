@@ -32,8 +32,8 @@ configure-pgbouncer-users:
     - watch_in: 
       - service: run-pgbouncer
     - contents: |
-      {% for user in postgres.users -%}
-      "{{ user }}" "{{ postgres.users[user] }}"
+      {% for user in postgres.user_list -%}
+      "{{ user }}" "{{ postgres.user_list[user] }}"
       {%- endfor %}
 
 run-pgbouncer:
