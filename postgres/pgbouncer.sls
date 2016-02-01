@@ -1,3 +1,4 @@
+{% from "postgres/map.jinja" import postgres with context -%}
 
 include:
   - postgres.upstream
@@ -18,4 +19,29 @@ configure-pgbouncer:
     - template: jinja
     - source: salt://postgres/pgbouncer.ini
     - require:
+      - pkg: install-pgbouncer
+    - watch_in: 
+      - service: run-pgbouncer
+
+
+configure-pgbouncer-users:
+  file.managed:
+    - name: /etc/pgbouncer/userlist.txt
+    - require:
+      - pkg: install-pgbouncer
+    - watch_in: 
+      - service: run-pgbouncer
+    - contents: |
+      {% for user in postgres.users -%}
+      "{{ user }}" "{{ postgres.users[user] }}"
+      {%- endfor %}
+
+run-pgbouncer:
+  service.running:
+    - name: pgbouncer
+    - enable: True
+    - provider: service
+    - full_restart: True
+    - require:
+      - file: configure-pgbouncer
       - pkg: install-pgbouncer
