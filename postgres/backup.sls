@@ -81,4 +81,13 @@ run-postgresql:
       - cmd: repostore-latest-postgres-backup
       - file: configure-restore-script
       - file: set-postgresql-dir-permissions
+{% else%}
+
+/etc/cron.d/backup_database:
+  file.managed:
+    - user: root
+    - group: root
+    - template: jinja
+    - source: salt://postgres/backup_database
+
 {% endif %}
