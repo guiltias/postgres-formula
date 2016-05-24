@@ -83,11 +83,12 @@ run-postgresql:
       - file: set-postgresql-dir-permissions
 {% else%}
 
+{% if postgres.backup_cron %}
 /etc/cron.d/backup_database:
   file.managed:
     - user: root
     - group: root
     - template: jinja
     - source: salt://postgres/backup_database
-
+{% endif %}
 {% endif %}
