@@ -1,0 +1,13 @@
+{% from "postgres/map.jinja" import postgres with context -%}
+LoadPlugin postgresql
+<Plugin postgresql>
+{% for base in postgres.database_list -%}
+  <Database {{ base }}>
+    Host "localhost"
+    Port "5432"
+    User "postgres"
+    Password "{{ postgres.user_list['postgres'] }}"
+    SSLMode "prefer"
+  </Database>
+{% endfor -%}
+</Plugin>

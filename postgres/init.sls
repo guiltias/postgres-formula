@@ -5,6 +5,14 @@ include:
   - postgres.upstream
 {% endif %}
 
+/etc/collectd/plugins/postgres.conf:
+  files.managed:
+    - user: root
+    - group: root
+    - mode: 644
+    - template: jinja
+    - source: salt://postgres/postgres.conf.collectd
+
 {{ postgres.conf_dir }}:
   file.directory:
     - makedirs: True
