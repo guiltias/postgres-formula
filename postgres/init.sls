@@ -6,7 +6,7 @@ include:
 {% endif %}
 
 /etc/collectd/plugins/postgres.conf:
-  files.managed:
+  file.managed:
     - user: root
     - group: root
     - mode: 644
