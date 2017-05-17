@@ -37,11 +37,11 @@ include:
 {% if postgres.init_replica == True %}
 repostore-latest-postgres-backup:
   cmd.run:
-    - name: service postgresql stop && rm -rf /var/lib/postgresql/9.2/main && envdir /etc/wal-e.d/main/env wal-e backup-fetch /var/lib/postgresql/9.2/main LATEST
+    - name: service postgresql stop && rm -rf /var/lib/postgresql/{{ postgres.version }}/main && envdir /etc/wal-e.d/main/env wal-e backup-fetch /var/lib/postgresql/{{ postgres.version }}/main LATEST
     - cwd: /var/lib/postgresql
     - user: postgres
     - group: postgres
-    - creates: /var/lib/postgresql/9.2/main/recovery.done 
+    - creates: /var/lib/postgresql/{{ postgres.version }}/main/recovery.done 
     - require:
       - file: /etc/wal-e.d/main/env/WALE_S3_PREFIX
       - file: /etc/wal-e.d/main/env/AWS_SECRET_ACCESS_KEY
@@ -51,7 +51,7 @@ repostore-latest-postgres-backup:
 
 set-postgresql-dir-permissions:
   file.directory:
-    - name: /var/lib/postgresql/9.2/main
+    - name: /var/lib/postgresql/{{ postgres.version }}/main
     - user: postgres
     - group: postgres
     - mode: 700
@@ -60,7 +60,7 @@ set-postgresql-dir-permissions:
 
 configure-restore-script:
   file.managed:
-    - name: /var/lib/postgresql/9.2/main/recovery.conf
+    - name: /var/lib/postgresql/{{ postgres.version }}/main/recovery.conf
     - user: postgres
     - group: postgres
     - mode: 655
